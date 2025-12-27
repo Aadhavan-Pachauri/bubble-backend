@@ -18,6 +18,9 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
+// Serve static files from public folder
+app.use(express.static('../public'));
+
 // Security Headers
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
