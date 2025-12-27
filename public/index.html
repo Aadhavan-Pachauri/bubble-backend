@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bubble Backend - AI-Powered API</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+    .header p { font-size: 1.1em; opacity: 0.95; }
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      padding: 40px;
+    }
+    .section {
+      display: flex;
+      flex-direction: column;
+    }
+    .section h2 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+    }
+    .section p {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .features {
+      list-style: none;
+      margin: 15px 0;
+    }
+    .features li {
+      padding: 10px 0;
+      padding-left: 30px;
+      color: #666;
+      position: relative;
+    }
+    .features li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .tester {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .tester h3 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .endpoint-group {
+      margin-bottom: 20px;
+    }
+    .endpoint-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .endpoint-btn:hover {
+      background: #764ba2;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    .input-group {
+      margin: 10px 0;
+    }
+    .input-group label {
+      display: block;
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .input-group input, .input-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+    .response-box {
+      background: #1e1e1e;
+      color: #0f0;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      max-height: 300px;
+      overflow-y: auto;
+      margin: 15px 0;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.85em;
+      font-weight: 600;
+      margin: 5px 0;
+    }
+    .status-success { background: #d4edda; color: #155724; }
+    .status-error { background: #f8d7da; color: #721c24; }
+    .status-loading { background: #e2e3e5; color: #383d41; }
+    @media (max-width: 768px) {
+      .content { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.8em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🫧 Bubble Backend</h1>
+      <p>AI-Powered API for Search, Emotion Analysis & Dashboard Stats</p>
+    </div>
+    
+    <div class="content">
+      <div class="section">
+        <h2>What is Bubble Backend?</h2>
+        <p>Bubble is a powerful AI backend service that provides three main capabilities:</p>
+        <ul class="features">
+          <li><strong>Search:</strong> Intelligent search powered by AI to find relevant information</li>
+          <li><strong>Emotion Analysis:</strong> Analyze text to detect emotions and sentiment</li>
+          <li><strong>Dashboard Stats:</strong> Real-time statistics and analytics endpoints</li>
+        </ul>
+        
+        <h2 style="margin-top: 30px;">How It Works</h2>
+        <p>This backend provides RESTful API endpoints that you can call from your frontend application. Each endpoint accepts requests and returns JSON responses with processed data.</p>
+        
+        <p><strong>Base URL:</strong></p>
+        <p style="font-family: monospace; background: #f0f0f0; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+          https://bubble-backend-id6ip9moc-aadhavans-projects-a9cf4303.vercel.app/api
+        </p>
+      </div>
+      
+      <div class="section">
+        <h2>Test The API</h2>
+        <div class="tester">
+          <div class="endpoint-group">
+            <h3>🔍 Search Endpoint</h3>
+            <div class="input-group">
+              <label>Search Query:</label>
+              <input type="text" id="searchQuery" placeholder="e.g., machine learning, web development" value="AI">
+            </div>
+            <button class="endpoint-btn" onclick="testSearch()">Test Search</button>
+          </div>
+          
+          <div class="endpoint-group">
+            <h3>😊 Emotion Analysis</h3>
+            <div class="input-group">
+              <label>Text to Analyze:</label>
+              <textarea id="emotionText" placeholder="Enter text to analyze emotions..." rows="3">I am so happy and excited about this amazing project!</textarea>
+            </div>
+            <button class="endpoint-btn" onclick="testEmotion()">Analyze Emotion</button>
+          </div>
+          
+          <div class="endpoint-group">
+            <h3>📊 Dashboard Stats</h3>
+            <button class="endpoint-btn" onclick="testDashboard()">Get Dashboard Stats</button>
+          </div>
+          
+          <h3 style="margin-top: 25px; color: #333;">Response:</h3>
+          <div class="response-box" id="responseBox">Response will appear here...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const API_BASE = 'https://bubble-backend-id6ip9moc-aadhavans-projects-a9cf4303.vercel.app/api';
+    
+    function updateResponse(text, isError = false) {
+      const box = document.getElementById('responseBox');
+      const status = document.createElement('div');
+      status.className = `status-badge ${isError ? 'status-error' : 'status-success'}`;
+      status.textContent = isError ? '❌ Error' : '✅ Success';
+      box.innerHTML = status.outerHTML + '<pre>' + text + '</pre>';
+    }
+    
+    function setLoading() {
+      const box = document.getElementById('responseBox');
+      const status = document.createElement('div');
+      status.className = 'status-badge status-loading';
+      status.textContent = '⏳ Loading...';
+      box.innerHTML = status.outerHTML;
+    }
+    
+    async function testSearch() {
+      const query = document.getElementById('searchQuery').value;
+      if (!query) { alert('Please enter a search query'); return; }
+      
+      setLoading();
+      try {
+        const response = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        updateResponse(JSON.stringify(data, null, 2), !response.ok);
+      } catch (e) {
+        updateResponse(`Error: ${e.message}`, true);
+      }
+    }
+    
+    async function testEmotion() {
+      const text = document.getElementById('emotionText').value;
+      if (!text) { alert('Please enter text to analyze'); return; }
+      
+      setLoading();
+      try {
+        const response = await fetch(`${API_BASE}/emotion`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text })
+        });
+        const data = await response.json();
+        updateResponse(JSON.stringify(data, null, 2), !response.ok);
+      } catch (e) {
+        updateResponse(`Error: ${e.message}`, true);
+      }
+    }
+    
+    async function testDashboard() {
+      setLoading();
+      try {
+        const response = await fetch(`${API_BASE}/dashboard/stats`);
+        const data = await response.json();
+        updateResponse(JSON.stringify(data, null, 2), !response.ok);
+      } catch (e) {
+        updateResponse(`Error: ${e.message}`, true);
+      }
+    }
+  </script>
+</body>
+</html>
